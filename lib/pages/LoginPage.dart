@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:toka/model/UserModel.dart';
 import 'package:toka/widgets/InputText.dart';
 
 import '../config/Theme.dart';
@@ -60,6 +59,21 @@ class BuildLogin extends StatelessWidget {
                 return Container();
               },
             ),
+            StreamBuilder(
+                stream: loginProvider.authBiometrics,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData && snapshot.data != null) {
+                    return RaisedButton(
+                        child: Text(
+                          "Iniciar sesion express",
+                          style: TextStyle(color: TokaTheme.primary),
+                        ),
+                        onPressed: () {
+                          loginProvider.loginWithBiometrics(context);
+                        });
+                  } else
+                    return Container();
+                }),
             SizedBox(height: 35),
             RaisedButton(
                 child: Text(
