@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toka/pages/HomePage.dart';
 import 'package:toka/pages/LoginPage.dart';
 
 Route Function(RouteSettings) get routes => (RouteSettings settings) {
@@ -8,6 +9,11 @@ Route Function(RouteSettings) get routes => (RouteSettings settings) {
         case "login":
           route = MaterialPageRoute(
               builder: (_) => LoginPage(),
+              settings: RouteSettings(name: settings.name));
+          break;
+        case "home":
+          route = MaterialPageRoute(
+              builder: (_) => HomePage(),
               settings: RouteSettings(name: settings.name));
           break;
         default:

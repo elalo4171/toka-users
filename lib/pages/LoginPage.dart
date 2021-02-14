@@ -1,22 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:toka/model/UserModel.dart';
 import 'package:toka/widgets/InputText.dart';
 
+import '../config/Theme.dart';
 import '../provider/GlobalProvider.dart';
+import '../provider/LoginProvider.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final GlobalProvider globalProvider = context.read<GlobalProvider>();
-    final theme = Theme.of(context);
     return Scaffold(
-      body: Center(
-          child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+      body: Provider(create: (context) => LoginProvider(), child: BuildLogin()),
+    );
+  }
+}
+
+class BuildLogin extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final GlobalProvider globalProvider = context.read<GlobalProvider>();
+    final LoginProvider loginProvider = context.read<LoginProvider>();
+    final theme = Theme.of(context);
+    return Center(
+        child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+      child: Form(
+        key: loginProvider.form,
         child: Column(
           children: [
             Spacer(
@@ -26,24 +38,45 @@ class LoginPage extends StatelessWidget {
             Spacer(),
             InputText(
               hint: "Email",
-              subject: BehaviorSubject(),
+              subject: loginProvider.email,
+              validator: loginProvider.validateEmail,
             ),
             SizedBox(height: 20),
             InputText(
               hint: "Password",
-              subject: BehaviorSubject(),
+              subject: loginProvider.password,
+              validator: loginProvider.requiredField,
             ),
-            SizedBox(height: 40),
-            RaisedButton(onPressed: () {
-              globalProvider.databaseProvider
-                  .validateUser(User(email: "z@z.com", password: "123456"));
-            }),
+            SizedBox(height: 10),
+            StreamBuilder(
+              stream: loginProvider.error,
+              builder: (context, snapshot) {
+                if (snapshot.hasData && snapshot.data != null) {
+                  return Center(
+                    child: Text(snapshot.data,
+                        style: TextStyle(color: theme.errorColor)),
+                  );
+                }
+                return Container();
+              },
+            ),
+            SizedBox(height: 35),
+            RaisedButton(
+                child: Text(
+                  "Login",
+                  style: TextStyle(color: TokaTheme.primary),
+                ),
+                onPressed: () {
+                  if (loginProvider.form.currentState.validate()) {
+                    loginProvider.login(globalProvider, context);
+                  }
+                }),
             Spacer(
               flex: 3,
             ),
           ],
         ),
-      )),
-    );
+      ),
+    ));
   }
 }

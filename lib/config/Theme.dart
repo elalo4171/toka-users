@@ -17,8 +17,12 @@ ThemeData get principalTheme {
       bodyText1: TextStyle(),
       bodyText2: TextStyle(),
       headline2: TextStyle(color: TokaTheme.textColor),
+      subtitle1: TextStyle(
+        color: Colors.white,
+      ),
     ).apply(
       bodyColor: TokaTheme.textColor,
+      displayColor: TokaTheme.textColor,
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
@@ -52,13 +56,19 @@ ThemeData get principalTheme {
           width: 1,
         ),
       ),
-      helperStyle: TextStyle(color: TokaTheme.secondary),
-      labelStyle: TextStyle(color: TokaTheme.secondary),
+      helperStyle: TextStyle(color: TokaTheme.textColor),
+      labelStyle: TextStyle(color: TokaTheme.textColor),
       errorStyle: TextStyle(height: 0.9),
       hintStyle: TextStyle(
         color: TokaTheme.textColor,
-        fontWeight: FontWeight.bold,
       ),
+    ),
+    buttonTheme: ButtonThemeData(
+      splashColor: TokaTheme.primary,
+      buttonColor: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      textTheme: ButtonTextTheme.primary,
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
     ),
   );
 }
