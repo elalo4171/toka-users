@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:toka/config/Routes.dart';
 import 'package:toka/config/Theme.dart';
-import 'package:toka/provider/LoginProvider.dart';
+
+import 'provider/GlobalProvider.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +12,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<LoginProvider>(create: (_)=>LoginProvider(),)
+        Provider<GlobalProvider>(
+          create: (_) => GlobalProvider(),
+        ),
       ],
       child: MaterialApp(
         title: 'Toka Users',
