@@ -13,8 +13,16 @@ class HomePage extends StatelessWidget {
     final globalProvider = context.read<GlobalProvider>();
     return Scaffold(
         appBar: AppBar(
-            title: Text("Lista de doctores",
-                style: TextStyle(color: Colors.white))),
+          title:
+              Text("Lista de doctores", style: TextStyle(color: Colors.white)),
+          centerTitle: true,
+          actions: [
+            IconButton(
+                icon: Icon(FontAwesomeIcons.signOutAlt), onPressed: () {}),
+          ],
+          leading: IconButton(
+              icon: Icon(FontAwesomeIcons.userPlus), onPressed: () {}),
+        ),
         body: Padding(
           padding: EdgeInsets.all(16.0),
           child: FutureBuilder<List<Person>>(

@@ -11,15 +11,17 @@ ThemeData get principalTheme {
       primaryColor: TokaTheme.primary,
       accentColor: TokaTheme.secondary,
       appBarTheme: AppBarTheme(
-        color: TokaTheme.primary,
-      ),
+          color: TokaTheme.primary,
+          iconTheme: IconThemeData(color: Colors.white)),
       textTheme: TextTheme(
-        bodyText1: TextStyle(),
-        bodyText2:
-            TextStyle(color: TokaTheme.primary, fontWeight: FontWeight.bold),
-        headline2: TextStyle(),
-        subtitle1: TextStyle(fontWeight: FontWeight.bold),
-      ),
+          bodyText1: TextStyle(),
+          bodyText2:
+              TextStyle(color: TokaTheme.primary, fontWeight: FontWeight.bold),
+          headline2: TextStyle(),
+          subtitle1: TextStyle(fontWeight: FontWeight.bold),
+          button: TextStyle(
+            color: TokaTheme.textColor,
+          )),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         isDense: true,

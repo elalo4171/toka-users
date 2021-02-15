@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:toka/config/Theme.dart';
 import 'package:toka/model/PersonModel.dart';
 import 'package:toka/widgets/ImageToka.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PersonPage extends StatelessWidget {
   const PersonPage({Key key, @required this.person}) : super(key: key);
   final Person person;
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final size = MediaQuery.of(context);
     return Scaffold(
         appBar: AppBar(
-            title: Text("Detalles de contacto",
-                style: TextStyle(color: Colors.white))),
+          title: Text("Detalles de contacto",
+              style: TextStyle(color: Colors.white)),
+          centerTitle: true,
+        ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -60,6 +66,24 @@ class PersonPage extends StatelessWidget {
                     double.parse(person.location.coordinates.latitude),
                     double.parse(person.location.coordinates.longitude)),
               )),
+              SizedBox(height: 20),
+              Center(
+                child: Container(
+                  width: size.size.width * .7,
+                  child: RaisedButton(
+                    onPressed: () async {
+                      if (await canLaunch("tel:${person.cell}")) {
+                        await launch("tel:${person.cell}");
+                      } else {}
+                    },
+                    child: Text(
+                      "Contactar",
+                      style: theme.textTheme.button,
+                    ),
+                    color: TokaTheme.primary,
+                  ),
+                ),
+              ),
               SizedBox(height: 20),
             ],
           ),
