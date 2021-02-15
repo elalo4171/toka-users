@@ -96,7 +96,6 @@ class DatabaseProvider {
         });
       }
     }
-    await getPersons();
   }
 
   Future<List<Person>> getPersons() async {

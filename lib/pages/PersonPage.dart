@@ -36,17 +36,17 @@ class PersonPage extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 10),
-              AddressDetails(
+              _AddressDetails(
                   title: "Calle: ", value: person.location.street.name),
               SizedBox(height: 10),
-              AddressDetails(title: "Ciudad: ", value: person.location.city),
+              _AddressDetails(title: "Ciudad: ", value: person.location.city),
               SizedBox(height: 10),
-              AddressDetails(title: "Estado: ", value: person.location.state),
+              _AddressDetails(title: "Estado: ", value: person.location.state),
               SizedBox(height: 10),
-              AddressDetails(
+              _AddressDetails(
                   title: "Codigo: ", value: person.location.postcode),
               SizedBox(height: 10),
-              AddressDetails(title: "Telefono: ", value: person.cell),
+              _AddressDetails(title: "Telefono: ", value: person.cell),
               SizedBox(height: 20),
               Row(
                 children: [
@@ -116,8 +116,8 @@ class _Map extends StatelessWidget {
   }
 }
 
-class AddressDetails extends StatelessWidget {
-  const AddressDetails({
+class _AddressDetails extends StatelessWidget {
+  const _AddressDetails({
     Key key,
     @required this.title,
     this.value,

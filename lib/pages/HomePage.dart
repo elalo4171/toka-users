@@ -18,7 +18,8 @@ class HomePage extends StatelessWidget {
           centerTitle: true,
           actions: [
             IconButton(
-                icon: Icon(FontAwesomeIcons.signOutAlt), onPressed: () {}),
+                icon: Icon(FontAwesomeIcons.signOutAlt),
+                onPressed: () => globalProvider.closeSessions(context)),
           ],
           leading: IconButton(
               icon: Icon(FontAwesomeIcons.userPlus), onPressed: () {}),
@@ -64,7 +65,7 @@ class _PersonItem extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(8),
           child: ListTile(
-            title: NameRanking(person: person),
+            title: _NameRanking(person: person),
             subtitle: Column(
               children: [
                 Align(
@@ -96,8 +97,8 @@ class _PersonItem extends StatelessWidget {
   }
 }
 
-class NameRanking extends StatelessWidget {
-  const NameRanking({
+class _NameRanking extends StatelessWidget {
+  const _NameRanking({
     Key key,
     @required this.person,
   }) : super(key: key);
