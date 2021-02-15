@@ -12,6 +12,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: TokaTheme.primary,
       body: Provider(create: (context) => LoginProvider(), child: BuildLogin()),
     );
   }
@@ -33,7 +34,9 @@ class BuildLogin extends StatelessWidget {
             Spacer(
               flex: 2,
             ),
-            Text("My App", style: theme.textTheme.headline2),
+            Text("My App",
+                style: theme.textTheme.headline2
+                    .copyWith(color: TokaTheme.textColor)),
             Spacer(),
             InputText(
               hint: "Email",

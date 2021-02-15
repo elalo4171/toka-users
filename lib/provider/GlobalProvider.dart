@@ -6,4 +6,6 @@ class GlobalProvider {
   GlobalProvider() {
     databaseProvider = new DatabaseProvider();
   }
+
+  close() {}
 }

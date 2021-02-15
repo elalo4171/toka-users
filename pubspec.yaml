@@ -15,6 +15,9 @@ dependencies:
   path_provider: ^1.5.1
   rxdart: ^0.25.0
   local_auth: ^0.6.3+4
+  http: ^0.12.2
+  font_awesome_flutter: ^8.11.0
+  google_maps_flutter: ^1.2.0
 
 dev_dependencies:
   flutter_test:
