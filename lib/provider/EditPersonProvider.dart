@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:toka/model/PersonModel.dart';
 import 'package:toka/provider/DatabaseProvider.dart';
+import 'package:toka/util/Validator.dart';
 
-class EditPersonProvider {
+class EditPersonProvider with Validator {
   BehaviorSubject name = BehaviorSubject<String>();
   BehaviorSubject email = BehaviorSubject<String>();
   BehaviorSubject street = BehaviorSubject<String>();
@@ -12,6 +14,7 @@ class EditPersonProvider {
   BehaviorSubject cell = BehaviorSubject<String>();
 
   Person person;
+  var form = GlobalKey<FormState>();
   EditPersonProvider(Person p) {
     person = p;
     name.sink.add(person.name.first);

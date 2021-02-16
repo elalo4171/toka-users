@@ -18,8 +18,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     context.read<DatabaseProvider>().loadPersons();
-
-    // TODO: implement initState
     super.initState();
   }
 
