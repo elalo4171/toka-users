@@ -17,7 +17,7 @@ dependencies:
   local_auth: ^0.6.3+4
   http: ^0.12.2
   font_awesome_flutter: ^8.11.0
-  google_maps_flutter: ^1.2.0
+  google_maps_flutter: ^0.5.27+3
   url_launcher: ^5.7.10
 
 dev_dependencies:

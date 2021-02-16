@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:toka/provider/DatabaseProvider.dart';
 import 'package:toka/widgets/InputText.dart';
 
 import '../config/Theme.dart';
-import '../provider/GlobalProvider.dart';
 import '../provider/LoginProvider.dart';
 
 class LoginPage extends StatelessWidget {
@@ -21,7 +21,7 @@ class LoginPage extends StatelessWidget {
 class BuildLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final GlobalProvider globalProvider = context.read<GlobalProvider>();
+    final DatabaseProvider databaseProvider = context.read<DatabaseProvider>();
     final LoginProvider loginProvider = context.read<LoginProvider>();
     final theme = Theme.of(context);
     return Center(
@@ -85,7 +85,7 @@ class BuildLogin extends StatelessWidget {
                 ),
                 onPressed: () {
                   if (loginProvider.form.currentState.validate()) {
-                    loginProvider.login(globalProvider, context);
+                    loginProvider.login(databaseProvider, context);
                   }
                 }),
             Spacer(

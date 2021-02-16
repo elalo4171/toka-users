@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:toka/config/Routes.dart';
 import 'package:toka/config/Theme.dart';
-import 'provider/GlobalProvider.dart';
+import 'provider/DatabaseProvider.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,14 +11,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<GlobalProvider>(
-          create: (_) => GlobalProvider(),
+        Provider<DatabaseProvider>(
+          create: (_) => DatabaseProvider(),
         ),
       ],
-      child: Consumer<GlobalProvider>(
+      child: Consumer<DatabaseProvider>(
         builder: (context, provider, _) {
           return StreamBuilder(
-            stream: provider.databaseProvider.isLogged,
+            stream: provider.isLogged,
             builder: (context, snapshot) {
               if (snapshot.hasData && snapshot.data != null) {
                 return MateApp(

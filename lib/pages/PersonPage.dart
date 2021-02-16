@@ -3,22 +3,55 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:toka/config/Theme.dart';
 import 'package:toka/model/PersonModel.dart';
+import 'package:toka/pages/EditPersonPage.dart';
 import 'package:toka/widgets/ImageToka.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class PersonPage extends StatelessWidget {
+class PersonPage extends StatefulWidget {
   const PersonPage({Key key, @required this.person}) : super(key: key);
   final Person person;
+
+  @override
+  _PersonPageState createState() => _PersonPageState();
+}
+
+class _PersonPageState extends State<PersonPage> {
+  Person person;
+  @override
+  void initState() {
+    person = widget.person;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context);
     return Scaffold(
         appBar: AppBar(
-          title: Text("Detalles de contacto",
-              style: TextStyle(color: Colors.white)),
-          centerTitle: true,
-        ),
+            title: Text("Detalles de contacto",
+                style: TextStyle(color: Colors.white)),
+            centerTitle: true,
+            actions: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: IconButton(
+                    icon: Icon(FontAwesomeIcons.userEdit),
+                    onPressed: () async {
+                      Person p = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EditPersonPage(
+                              person: person,
+                            ),
+                          ));
+                      if (p != null) {
+                        this.person = p;
+                        setState(() {});
+                      }
+                    }),
+              ),
+            ]),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -60,12 +93,13 @@ class PersonPage extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 20),
-              Expanded(
+              Container(
+                  height: size.size.height * .2,
                   child: _Map(
-                location: LatLng(
-                    double.parse(person.location.coordinates.latitude),
-                    double.parse(person.location.coordinates.longitude)),
-              )),
+                    location: LatLng(
+                        double.parse(person.location.coordinates.latitude),
+                        double.parse(person.location.coordinates.longitude)),
+                  )),
               SizedBox(height: 20),
               Center(
                 child: Container(
@@ -104,14 +138,16 @@ class _Map extends StatelessWidget {
       target: LatLng(location.latitude, location.longitude),
       zoom: 14.4746,
     );
-    return GoogleMap(
-      initialCameraPosition: _kGooglePlex,
-      markers: Set<Marker>.from([
-        Marker(
-            markerId: MarkerId(location.latitude.toString()),
-            position: location)
-      ]),
-      onMapCreated: (GoogleMapController controller) {},
+    return Container(
+      child: GoogleMap(
+        initialCameraPosition: _kGooglePlex,
+        markers: Set<Marker>.from([
+          Marker(
+              markerId: MarkerId(location.latitude.toString()),
+              position: location)
+        ]),
+        onMapCreated: (GoogleMapController controller) {},
+      ),
     );
   }
 }

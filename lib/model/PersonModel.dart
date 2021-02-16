@@ -58,7 +58,7 @@ class Person {
         "location": location.toJson(),
       };
   Map<String, dynamic> toJsonDatabase() => {
-        "name": "${name.first} ${name.last}",
+        "name": "${name.first} ${name.last ?? ""}",
         "picture": picture,
         "email": email,
         "ranking": ranking,

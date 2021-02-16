@@ -88,6 +88,7 @@ class _InputTextState extends State<InputText> {
       autofocus: widget.autofocus,
       maxLines: widget.maxLines,
       minLines: widget.minLines,
+      style: TextStyle(color: Colors.white),
       decoration: InputDecoration(
         counterText: widget.counter,
         suffix: widget.icon != null ? Icon(widget.icon) : null,

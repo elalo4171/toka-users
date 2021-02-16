@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toka/pages/EditPersonPage.dart';
 import 'package:toka/pages/HomePage.dart';
 import 'package:toka/pages/LoginPage.dart';
 import 'package:toka/pages/PersonPage.dart';
@@ -20,6 +21,13 @@ Route Function(RouteSettings) get routes => (RouteSettings settings) {
         case "person":
           route = MaterialPageRoute(
               builder: (_) => PersonPage(
+                    person: settings.arguments,
+                  ),
+              settings: RouteSettings(name: settings.name));
+          break;
+        case "editperson":
+          route = MaterialPageRoute(
+              builder: (_) => EditPersonPage(
                     person: settings.arguments,
                   ),
               settings: RouteSettings(name: settings.name));

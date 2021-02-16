@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:toka/model/UserModel.dart';
+import 'package:toka/provider/DatabaseProvider.dart';
 import 'package:toka/util/Validator.dart';
 import 'package:local_auth/local_auth.dart';
-import 'GlobalProvider.dart';
 
 class LoginProvider with Validator {
   LoginProvider() {
@@ -20,9 +20,9 @@ class LoginProvider with Validator {
   final LocalAuthentication auth = LocalAuthentication();
 
   Future<void> login(
-      GlobalProvider globalProvider, BuildContext context) async {
+      DatabaseProvider databaseProvider, BuildContext context) async {
     User user = User(email: email.value, password: password.value);
-    bool isValidate = await globalProvider.databaseProvider.validateUser(user);
+    bool isValidate = await databaseProvider.validateUser(user);
     if (isValidate) {
       Navigator.pushReplacementNamed(context, "home");
     } else {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:toka/model/PersonModel.dart';
-import 'package:toka/provider/GlobalProvider.dart';
+import 'package:toka/provider/DatabaseProvider.dart';
 import 'package:toka/widgets/ImageToka.dart';
 
 class HomePage extends StatelessWidget {
@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final globalProvider = context.read<GlobalProvider>();
+    final databaseProvider = context.read<DatabaseProvider>();
     return Scaffold(
         appBar: AppBar(
           title:
@@ -19,15 +19,13 @@ class HomePage extends StatelessWidget {
           actions: [
             IconButton(
                 icon: Icon(FontAwesomeIcons.signOutAlt),
-                onPressed: () => globalProvider.closeSessions(context)),
+                onPressed: () => databaseProvider.closeSessions(context)),
           ],
-          leading: IconButton(
-              icon: Icon(FontAwesomeIcons.userPlus), onPressed: () {}),
         ),
         body: Padding(
           padding: EdgeInsets.all(16.0),
           child: FutureBuilder<List<Person>>(
-            future: globalProvider.databaseProvider.getPersons(),
+            future: databaseProvider.getPersons(),
             builder: (context, snapshot) {
               if (snapshot.hasData && snapshot.data != null) {
                 return ListView.builder(

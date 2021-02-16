@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:path/path.dart';
 import 'package:rxdart/rxdart.dart';
@@ -98,6 +99,11 @@ class DatabaseProvider {
     }
   }
 
+  Future<void> updatePerson(Person person) async {
+    await _database.update("person", person.toJsonDatabase(),
+        where: "id = ?", whereArgs: [person.id]);
+  }
+
   Future<List<Person>> getPersons() async {
     var data = await _database.query(
       "person",
@@ -154,6 +160,11 @@ class DatabaseProvider {
       return null;
     }
     return null;
+  }
+
+  closeSessions(BuildContext context) {
+    cleanUserLogged();
+    Navigator.pushReplacementNamed(context, "login");
   }
 
   close() {
