@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -5,8 +7,21 @@ import 'package:toka/model/PersonModel.dart';
 import 'package:toka/provider/DatabaseProvider.dart';
 import 'package:toka/widgets/ImageToka.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    context.read<DatabaseProvider>().loadPersons();
+
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +39,8 @@ class HomePage extends StatelessWidget {
         ),
         body: Padding(
           padding: EdgeInsets.all(16.0),
-          child: FutureBuilder<List<Person>>(
-            future: databaseProvider.getPersons(),
+          child: StreamBuilder<List<Person>>(
+            stream: databaseProvider.persons,
             builder: (context, snapshot) {
               if (snapshot.hasData && snapshot.data != null) {
                 return ListView.builder(
@@ -57,8 +72,15 @@ class _PersonItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final databaseProvider = context.read<DatabaseProvider>();
+
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, "person", arguments: person),
+      onTap: () async {
+        await Navigator.pushNamed(context, "person", arguments: person);
+        Timer(Duration(milliseconds: 200), () {
+          databaseProvider.loadPersons();
+        });
+      },
       child: Card(
         child: Padding(
           padding: EdgeInsets.all(8),

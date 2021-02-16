@@ -23,6 +23,8 @@ class DatabaseProvider {
   static final _columnPasswordUser = 'password';
   static final _usersToLoad = 10;
 
+  BehaviorSubject<List<Person>> persons = BehaviorSubject<List<Person>>();
+
   DatabaseProvider() {
     _initDatabase();
   }
@@ -104,13 +106,13 @@ class DatabaseProvider {
         where: "id = ?", whereArgs: [person.id]);
   }
 
-  Future<List<Person>> getPersons() async {
+  Future<void> loadPersons() async {
     var data = await _database.query(
       "person",
     );
-    List<Person> persons =
+    List<Person> personsDatabase =
         List<Person>.from(data.map((x) => Person.fromJsonDatabase(x)));
-    return persons;
+    persons.sink.add(personsDatabase);
   }
 
   Future<bool> isUserLogged() async {
@@ -169,5 +171,6 @@ class DatabaseProvider {
 
   close() {
     isLogged.close();
+    persons.close();
   }
 }
